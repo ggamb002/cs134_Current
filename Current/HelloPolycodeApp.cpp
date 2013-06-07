@@ -1,7 +1,7 @@
 #include "HelloPolycodeApp.h"
 
 HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
-
+    
     core = new SDLCore(view, 640,480,false,false,0,0,90);	  
 
     CoreServices::getInstance()->getResourceManager()->addArchive("default.pak");
@@ -16,9 +16,10 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     p = new Player(Vector3(24.0,2.0,0.0),cscene);
     t = new Tunnel(1.0,50 ,cscene);    
     t2 = new Tunnel(1.5,0,cscene);
-
+    Obstacle * o = new Obstacle(Vector3(-25.0, 5.0,-1.0),cscene);
+    Obstacle * o2 = new Obstacle(Vector3(-40.0, 2.5,1.0),cscene);
     cam = new CCam(cscene->getActiveCamera(),Vector3(24.0,2.0,0.0));
-
+    
     cMan = new CollisionManager();
 
     core->getInput()->addEventListener(this, InputEvent::EVENT_KEYDOWN);
