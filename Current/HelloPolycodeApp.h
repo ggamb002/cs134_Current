@@ -4,7 +4,8 @@
 
 #include "Player.H"
 #include "Tunnel.H"
-#include "Camera.H"
+#include "CCam.H"
+#include "CollisionManager.H"
 
 using namespace Polycode;
 
@@ -18,6 +19,8 @@ public:
     
 private:
     Core *core;
+    CollisionScene *cscene;
+    CollisionManager *cMan;
     Player *p;
     Tunnel *t;
     Tunnel *t2;

@@ -11,13 +11,15 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     ScreenLabel *label = new ScreenLabel("Hello, Polycode!", 32);
     screen->addChild(label);
 
-    CollisionScene *cscene = new CollisionScene();
+    cscene = new CollisionScene();
 
     p = new Player(Vector3(24.0,2.0,0.0),cscene);
     t = new Tunnel(1.0,50 ,cscene);    
     t2 = new Tunnel(1.5,0,cscene);
 
     cam = new CCam(cscene->getActiveCamera(),Vector3(24.0,2.0,0.0));
+
+    cMan = new CollisionManager();
 
     core->getInput()->addEventListener(this, InputEvent::EVENT_KEYDOWN);
     core->getInput()->addEventListener(this, InputEvent::EVENT_KEYUP);
@@ -62,7 +64,16 @@ void HelloPolycodeApp::handleEvent(Event *e)
 }
 
 bool HelloPolycodeApp::Update() {
-    p->moveForward();
+
+    p->update();
     cam->moveForward();
+
+    if(cMan->testCollision(cscene,t,p)){
+        p->setColor(1.0,1.0,0.0,0.5);
+    }
+    else{
+        p->setColor(0.0,1.0,1.0,0.5);
+    }
+
     return core->updateAndRender();
 }

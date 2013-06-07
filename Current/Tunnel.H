@@ -16,11 +16,11 @@ public:
     Tunnel(const Number &sc, const Number &pos,CollisionScene *scene)
         :scale(sc),position(pos)
     {
-        rw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,50,5,.1);
+        rw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,50,5,5);
         rw->setPosition(Vector3(-1*position,2.5,5*sc));
         rw->setColor(.71,.63,1.0,1.0);
 
-        lw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,50,5,.1);
+        lw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,50,5,5);
         lw->setPosition(Vector3(-1*position,2.5,-5*sc));
         lw->setColor(.51,.63,1.0,1.0);
 
@@ -38,6 +38,20 @@ public:
         delete rw,lw,g;
     }
 
+    ScenePrimitive* getLeft()
+    {
+        return lw;
+    }
+
+    ScenePrimitive* getRight()
+    {
+        return rw;
+    }
+
+    ScenePrimitive* getGround()
+    {
+        return g;
+    }
 };
 
 #endif 

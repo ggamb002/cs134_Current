@@ -8,6 +8,7 @@ class Player{
 public:
     ScenePrimitive *p;
     Number speed;
+    Vector3 prevPos;
 
     Player(const Vector3 &pos, CollisionScene *cscene):speed(.15)
     {
@@ -36,6 +37,26 @@ public:
     void moveForward()
     {
         p->Translate(Vector3(-1*speed,0,0));
+    }
+
+    void update()
+    {
+        this->moveForward();
+    }
+
+    void undoMove()
+    {
+        p->setPosition(prevPos);
+    }
+    
+    void setColor(Number r, Number g, Number b, Number a)
+    {
+        p->setColor(r,g,b,a);
+    }
+
+    ScenePrimitive* getEntity()
+    {
+        return p;
     }
 
 };
