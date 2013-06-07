@@ -18,7 +18,7 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     t2 = new Tunnel(15,0,cscene);
     tr = new Tunnel(15,50,cscene,10,10);
     t = new Tunnel(10,60 ,cscene);
-    tr2 = new Tunnel(10,110,cscene,15,10);
+    tr2 = new Tunnel(10,150,cscene,15,10);
 
     Obstacle * o = new Obstacle(Vector3(-25.0, 5.0,-1.0),cscene);
     Obstacle * o2 = new Obstacle(Vector3(-40.0, 2.5,1.0),cscene);
@@ -86,14 +86,18 @@ bool HelloPolycodeApp::Update() {
     else{
         p->setColor(0.0,1.0,1.0,0.5);
     }
-
-
-//    if(cMan->testCollision(cscene,tr,p)){
-//        p->setColor(1.0,1.0,0.0,0.5);
-//    }
-//    else{
-//        p->setColor(0.0,1.0,1.0,0.5);
-//    }
+    if(cMan->testCollision(cscene,tr,p)){
+        p->setColor(1.0,1.0,0.0,0.5);
+    }
+    else{
+        p->setColor(0.0,1.0,1.0,0.5);
+    }
+    if(cMan->testCollision(cscene,tr2,p)){
+        p->setColor(1.0,1.0,0.0,0.5);
+    }
+    else{
+        p->setColor(0.0,1.0,1.0,0.5);
+    }
     return core->updateAndRender();
 
 }

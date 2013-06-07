@@ -45,23 +45,41 @@ public:
         :position(pos),width(w)
     {
    
-        Number w2 = (w-nw)/2.0;
+        Number w2 = abs(w-nw)/2.0;
         Number angle = atan(w2/h) * 180 / PI;
         Number len = h/cos(angle * PI / 180 );
 
         rw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,len,5,.1);
         rw->setPosition(Vector3(-1*position * .60, 2.5, w/2));
         rw->setColor(.71,.63,1.0,1.0);
-        rw->setYaw(-1*angle);
-        rw->Translate(Vector3(0,0,abs(w2)/-2));
+
+        if(w > nw){
+            rw->setYaw(-1*angle);
+            rw->Translate(Vector3(0,0,abs(w2)/-2));
+        }
+        else{ 
+            rw->setYaw(angle);
+            rw->Translate(Vector3(0,0,abs(w2)/2));
+        }
 
         lw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,len,5,.1);
         lw->setPosition(Vector3(-1*position * .60, 2.5, w/-2));
         lw->setColor(.51,.63,1.0,1.0);
-        lw->setYaw(angle);
-        lw->Translate(Vector3(0,0,abs(w2)/2));
-            
-        g = new ScenePrimitive(ScenePrimitive::TYPE_BOX,10,.1,width); 
+
+        if( w > nw){
+            lw->setYaw(angle);
+            lw->Translate(Vector3(0,0,abs(w2)/2));
+        }
+        else{
+            lw->setYaw(-1*angle);
+            lw->Translate(Vector3(0,0,abs(w2)/-2));
+        }
+           
+        Number gw;
+        if(w > nw) gw = w;
+        else gw = nw;
+
+        g = new ScenePrimitive(ScenePrimitive::TYPE_BOX,h,.1,gw); 
         g->setPosition(Vector3(-1*position * .60,0,0));
         g->setColor(.51,.43,1.0,1.0);
 
