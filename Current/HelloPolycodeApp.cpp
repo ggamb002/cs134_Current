@@ -8,14 +8,17 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     CoreServices::getInstance()->getResourceManager()->addDirResource("default", false);
 
     Screen *screen = new Screen();
-    ScreenLabel *label = new ScreenLabel("Hello, Polycode!", 32);
+    ScreenLabel *label = new ScreenLabel("Hello, ZACH!", 32);
     screen->addChild(label);
 
     cscene = new CollisionScene();
 
     p = new Player(Vector3(24.0,2.0,0.0),cscene);
-    t = new Tunnel(1.0,50 ,cscene);    
-    t2 = new Tunnel(1.5,0,cscene);
+
+    t2 = new Tunnel(15,0,cscene);
+    tr = new Tunnel(15,50,cscene,10,10);
+    t = new Tunnel(10,60 ,cscene);
+    tr2 = new Tunnel(10,110,cscene,15,10);
 
     cam = new CCam(cscene->getActiveCamera(),Vector3(24.0,2.0,0.0));
 
@@ -75,5 +78,20 @@ bool HelloPolycodeApp::Update() {
         p->setColor(0.0,1.0,1.0,0.5);
     }
 
+    if(cMan->testCollision(cscene,t2,p)){
+        p->setColor(1.0,1.0,0.0,0.5);
+    }
+    else{
+        p->setColor(0.0,1.0,1.0,0.5);
+    }
+
+
+//    if(cMan->testCollision(cscene,tr,p)){
+//        p->setColor(1.0,1.0,0.0,0.5);
+//    }
+//    else{
+//        p->setColor(0.0,1.0,1.0,0.5);
+//    }
     return core->updateAndRender();
+
 }

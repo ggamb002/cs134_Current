@@ -24,5 +24,8 @@ private:
     Player *p;
     Tunnel *t;
     Tunnel *t2;
+    Tunnel *tr;
+    Tunnel *tr2;
     CCam *cam;
+
 };

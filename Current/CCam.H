@@ -14,7 +14,7 @@ public:
     {
         tar = new ScenePrimitive(ScenePrimitive::TYPE_BOX,1.0,1.0,1.0);
         tar->setPosition(pos);
-        
+
         cam->setPosition(pos + Vector3(20,5,0));
         cam->lookAt(pos);
     }

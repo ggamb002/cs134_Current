@@ -1,4 +1,4 @@
-CC=g++
+CC=g++ -g
 
 #/home/teddybomber/.Polycode/Polycode-master/Release/Linux/Framework
 

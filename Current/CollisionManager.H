@@ -19,8 +19,6 @@ public:
         CollisionResult resR =
             c->testCollision(t->getRight(),p->getEntity());
 
-        //return( resL.collided || resR.collided );
-    
         if(resR.collided)
             p->moveRight();
         if(resL.collided)
@@ -28,7 +26,6 @@ public:
 
         return( resL.collided || resR.collided );
     }
-    
 
 };
 
