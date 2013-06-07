@@ -1,12 +1,12 @@
 #include <Polycode.h>
 #include "PolycodeView.h"
 #include "Polycode3DPhysics.h"
-
+#include <vector>
 #include "Player.H"
 #include "Tunnel.H"
 #include "CCam.H"
 #include "CollisionManager.H"
-
+#include "obstacle.H"
 using namespace Polycode;
 
 class HelloPolycodeApp : public EventHandler {
@@ -26,6 +26,7 @@ private:
     Tunnel *t2;
     Tunnel *tr;
     Tunnel *tr2;
+    std::vector<Obstacle *> obstacles;
     CCam *cam;
 
 };
