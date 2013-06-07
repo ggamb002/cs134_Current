@@ -11,3 +11,10 @@
 *.lai
 *.la
 *.a
+
+#Stuff that shouldnt be there
+Makefile
+PolycodeTemplate
+default.pak
+*~
+.*.swp
