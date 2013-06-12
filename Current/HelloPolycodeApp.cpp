@@ -70,8 +70,8 @@ bool HelloPolycodeApp::Update() {
 
     p->update();
     cam->moveForward();
-    //    for(int i = 0; gen->active_sections.size(); ++i)
-    //	cMan->testCollision(cscene,gen->active_sections[i],p);
+    for(int i = 0; i<gen->active_sections.size(); ++i)
+    	cMan->testCollision(cscene,gen->active_sections[i],p);
     return core->updateAndRender();
 
 }

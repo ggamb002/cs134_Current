@@ -14,6 +14,7 @@ public:
 
     bool testCollision(CollisionScene *c, Tunnel *t, Player *p)
     {
+	if(t == NULL || c==NULL ||p==NULL)return false;
         CollisionResult resL = 
             c->testCollision(t->getLeft(),p->getEntity());
         CollisionResult resR =
