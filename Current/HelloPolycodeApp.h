@@ -4,6 +4,7 @@
 #include <vector>
 #include "Player.H"
 #include "Tunnel.H"
+#include "generator.H"
 #include "CCam.H"
 #include "CollisionManager.H"
 #include "obstacle.H"
@@ -22,10 +23,7 @@ private:
     CollisionScene *cscene;
     CollisionManager *cMan;
     Player *p;
-    Tunnel *t;
-    Tunnel *t2;
-    Tunnel *tr;
-    Tunnel *tr2;
+    Generator * gen;
     std::vector<Obstacle *> obstacles;
     CCam *cam;
 

@@ -14,11 +14,9 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     cscene = new CollisionScene();
 
     p = new Player(Vector3(24.0,2.0,0.0),cscene);
-
-    t2 = new Tunnel(15,0,cscene);
-    tr = new Tunnel(15,50,cscene,10,10);
-    t = new Tunnel(10,60 ,cscene);
-    tr2 = new Tunnel(10,150,cscene,15,10);
+    gen = new Generator(cscene);
+    for(int i = 0; i < 6; ++i)
+	gen->generate();
 
     Obstacle * o = new Obstacle(Vector3(-25.0, 5.0,-1.0),cscene);
     Obstacle * o2 = new Obstacle(Vector3(-40.0, 2.5,1.0),cscene);
@@ -38,66 +36,42 @@ HelloPolycodeApp::~HelloPolycodeApp() {
 void HelloPolycodeApp::handleEvent(Event *e)
 {
     if(e->getDispatcher() == core->getInput())
-    {
-        InputEvent * inputEvent = (InputEvent*)e;
+	{
+	    InputEvent * inputEvent = (InputEvent*)e;
 
-        switch(e->getEventCode())
-        {
-            case InputEvent::EVENT_KEYDOWN:
-                switch(inputEvent->keyCode())
-                {
-                    case KEY_LEFT:
-                        p->moveLeft();
-                        break;
-                    case KEY_RIGHT:
-                        p->moveRight();
-                        break;
-                }
-                break;
+	    switch(e->getEventCode())
+		{
+		case InputEvent::EVENT_KEYDOWN:
+		    switch(inputEvent->keyCode())
+			{
+			case KEY_LEFT:
+			    p->moveLeft();
+			    break;
+			case KEY_RIGHT:
+			    p->moveRight();
+			    break;
+			}
+		    break;
             
-            case InputEvent::EVENT_KEYUP:
-                switch(inputEvent->keyCode())
-                {
-                    case KEY_LEFT:
-                        break;
-                    case KEY_RIGHT:
-                        break;
-                }
-                break;
-        }
-    }
+		case InputEvent::EVENT_KEYUP:
+		    switch(inputEvent->keyCode())
+			{
+			case KEY_LEFT:
+			    break;
+			case KEY_RIGHT:
+			    break;
+			}
+		    break;
+		}
+	}
 }
 
 bool HelloPolycodeApp::Update() {
 
     p->update();
     cam->moveForward();
-
-    if(cMan->testCollision(cscene,t,p)){
-        p->setColor(1.0,1.0,0.0,0.5);
-    }
-    else{
-        p->setColor(0.0,1.0,1.0,0.5);
-    }
-
-    if(cMan->testCollision(cscene,t2,p)){
-        p->setColor(1.0,1.0,0.0,0.5);
-    }
-    else{
-        p->setColor(0.0,1.0,1.0,0.5);
-    }
-    if(cMan->testCollision(cscene,tr,p)){
-        p->setColor(1.0,1.0,0.0,0.5);
-    }
-    else{
-        p->setColor(0.0,1.0,1.0,0.5);
-    }
-    if(cMan->testCollision(cscene,tr2,p)){
-        p->setColor(1.0,1.0,0.0,0.5);
-    }
-    else{
-        p->setColor(0.0,1.0,1.0,0.5);
-    }
+    //    for(int i = 0; gen->active_sections.size(); ++i)
+    //	cMan->testCollision(cscene,gen->active_sections[i],p);
     return core->updateAndRender();
 
 }

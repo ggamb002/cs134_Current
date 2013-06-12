@@ -19,7 +19,8 @@ public:
 	Tunnel * t = new Tunnel(width,TUNNEL_LENGTH * generated,cscene);
 	Tunnel * tr = new Tunnel( TUNNEL_LENGTH * (generated+1),
 				  cscene,width,next_width, TUNNEL_LENGTH);
-
+	active_sections.push_back(t);
+	active_sections.push_back(tr);
 	generated += 2;
 			      
     }
