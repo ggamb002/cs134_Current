@@ -41,46 +41,49 @@ public:
     //w is left-right, h is forward-back
     //scale is of previous section, pos is end of the prev section
     //w is the width of next section, h is 10 for now, or doesnt work
-    Tunnel(const Number &w, const Number &pos, CollisionScene *scene, const Number &nw, const Number &h)
-        :position(pos),width(w)
+    Tunnel(const Number &pos, CollisionScene *scene,const Number &w1,const Number &w2, const Number &length)
+        :position(pos),width(w2)
     {
    
-        Number w2 = abs(w-nw)/2.0;
-        Number angle = atan(w2/h) * 180 / PI;
-        Number len = h/cos(angle * PI / 180 );
-
+        Number w = w1 - w2;
+        Number angle = atan(w/length) * 180 / PI;
+        Number len = sqrt(length * length + w * w);
+	Number d =w2/2;
         rw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,len,5,.1);
-        rw->setPosition(Vector3(-1*position * .60, 2.5, w/2));
+        rw->setPosition(Vector3(-1*position, 2.5, 0 ));
         rw->setColor(.71,.63,1.0,1.0);
 
-        if(w > nw){
+        if(w1 > w2){
+	    rw->Translate(Vector3(0,0,d));
             rw->setYaw(-1*angle);
-            rw->Translate(Vector3(0,0,abs(w2)/-2));
         }
         else{ 
+	    rw->Translate(Vector3(0,0,-d));
             rw->setYaw(angle);
-            rw->Translate(Vector3(0,0,abs(w2)/2));
+
         }
 
         lw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,len,5,.1);
-        lw->setPosition(Vector3(-1*position * .60, 2.5, w/-2));
+        lw->setPosition(Vector3(-1*position, 2.5, 0));
         lw->setColor(.51,.63,1.0,1.0);
 
-        if( w > nw){
+        if( w1 > w2){
+
+	    lw->Translate(Vector3(0,0,-d));
             lw->setYaw(angle);
-            lw->Translate(Vector3(0,0,abs(w2)/2));
         }
         else{
+
+	    lw->Translate(Vector3(0,0,d));
             lw->setYaw(-1*angle);
-            lw->Translate(Vector3(0,0,abs(w2)/-2));
         }
            
         Number gw;
-        if(w > nw) gw = w;
-        else gw = nw;
+        if(w2 > w1) gw = w2;
+        else gw = w1;
 
-        g = new ScenePrimitive(ScenePrimitive::TYPE_BOX,h,.1,gw); 
-        g->setPosition(Vector3(-1*position * .60,0,0));
+        g = new ScenePrimitive(ScenePrimitive::TYPE_BOX,length,.1,gw); 
+        g->setPosition(Vector3(-1*position ,0,0));
         g->setColor(.51,.43,1.0,1.0);
 
         scene->addCollisionChild(rw);
