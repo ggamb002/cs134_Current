@@ -3,6 +3,7 @@
 
 #include "Tunnel.H"
 #include "Player.H"
+#include "treasure.H"
 
 using namespace Polycode;
 
@@ -77,6 +78,19 @@ public:
     void moveForward(Number sp)
     {
         speedCheck->Translate(Vector3(-1*sp,0,0));
+    }
+
+    //Test for treasure collection
+    bool checkTreasure(CollisionScene *c, Player * p, Treasure *t)
+    {
+        if(p == NULL || t == NULL) return false;
+        
+        CollisionResult result = c->testCollision(p->getEntity(),t->getEntity());
+
+        if(result.collided)
+            t->collectTreasure(c);
+
+        return(result.collided);
     }
 
 };

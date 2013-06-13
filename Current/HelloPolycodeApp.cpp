@@ -16,15 +16,21 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
 
     cscene = new CollisionScene();
 
-    p = new Player(Vector3(-100.0,2.0,0.0),cscene);
+//    p = new Player(Vector3(-100.0,2.0,0.0),cscene);
+    p = new Player(Vector3(24.0,2.0,0.0),cscene);
+
     gen = new Generator(cscene);
     for(int i = 0; i < 10; ++i)
 	gen->randGenerate();
 
-    Obstacle * o = new Obstacle(Vector3(-25.0, 5.0,-1.0),cscene);
-    Obstacle * o2 = new Obstacle(Vector3(-40.0, 2.5,1.0),cscene);
-    cam = new CCam(cscene->getActiveCamera(),Vector3(-100.0,2.0,0.0));
-    
+//    Obstacle * o = new Obstacle(Vector3(-25.0, 5.0,-1.0),cscene);
+//    Obstacle * o2 = new Obstacle(Vector3(-40.0, 2.5,1.0),cscene);
+
+    t = new Treasure(Vector3(-100.0,2.0,1.0),cscene,1.0);
+
+//    cam = new CCam(cscene->getActiveCamera(),Vector3(-100.0,2.0,0.0));
+    cam = new CCam(cscene->getActiveCamera(),Vector3(24.0,2.0,0.0));
+
     cMan = new CollisionManager(cscene);
 
     core->getInput()->addEventListener(this, InputEvent::EVENT_KEYDOWN);
@@ -108,6 +114,7 @@ bool HelloPolycodeApp::Update() {
 
     for(int i = 0; i<gen->active_sections.size(); ++i)
     	cMan->testCollision(cscene,gen->active_sections[i],p);
+
     for(int i = 0; i<gen->active_sections.size(); ++i){
         updateSpeed = cMan->getSpeed(cscene,gen->active_sections[i]);
         if(updateSpeed < 0)
@@ -115,6 +122,8 @@ bool HelloPolycodeApp::Update() {
         else
             break;
     }
+
+    cMan->checkTreasure(cscene,p,t);
 
     p->moveForward(updateSpeed);
     cam->moveForward(updateSpeed);

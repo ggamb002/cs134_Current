@@ -8,6 +8,8 @@
 #include "CCam.H"
 #include "CollisionManager.H"
 #include "obstacle.H"
+#include "treasure.H"
+
 using namespace Polycode;
 
 class HelloPolycodeApp : public EventHandler {
@@ -23,6 +25,7 @@ private:
     CollisionScene *cscene;
     CollisionManager *cMan;
     Player *p;
+    Treasure *t;
     bool mLeft;
     bool mRight;
     Number updateSpeed;
