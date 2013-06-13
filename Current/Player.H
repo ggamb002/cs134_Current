@@ -1,6 +1,6 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
-
+#include <iostream>
 using namespace Polycode;
 
 class Player{
@@ -18,12 +18,12 @@ public:
     bool b;
     Player(const Vector3 &pos, CollisionScene *cscene)
 	:speed(.25),l(false),r(false),u(false), d(false),f(false),b(false),
-	 homeslice(pos.z)
+	bound(4.0)
     {
         p = new ScenePrimitive(ScenePrimitive::TYPE_BOX,1.0,1.0,1.0);
         p->setPosition(pos);
         p->setColor(1.0,0.0,0.0,1.0);
-
+	homeslice = pos.x;
         cscene->addCollisionChild(p);
     }
 
@@ -67,19 +67,35 @@ public:
     void moveForward(Number sp)
     {
         p->Translate(Vector3(-1*sp,0,0));
+	homeslice+=-1*sp;
     }
 
     void boost()
     {
-	
+	if(p->getPosition().x > homeslice - bound)
+	    p->Translate(Vector3(-1*speed,0,0));
     }
     void brake()
     {
-
+	if(p->getPosition().x < homeslice + bound)
+	    p->Translate(Vector3(1*speed,0,0));
     }
     void move_toward_center()
     {
-
+	if(p->getPosition().x > homeslice){
+	    if(p->getPosition().x - speed < homeslice)
+		p->setPosition(Vector3( homeslice,p->getPosition().y,
+					p->getPosition().z));
+	    else
+		p->Translate(Vector3(-1 * speed,0,0));
+	}
+	else if(p->getPosition().x < homeslice){
+	    if(p->getPosition().x + speed > homeslice)
+		p->setPosition(Vector3( homeslice,p->getPosition().y,
+					p->getPosition().z));
+	    else
+		p->Translate(Vector3( speed,0,0));
+	}
     }
     void update()
     {
