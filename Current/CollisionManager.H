@@ -36,17 +36,19 @@ public:
         if(resR.collided)
         {
             if((*p).p->getPosition().z > t->getLeft()->getPosition().z)
-                p->moveRight();
+                p->moveRight(.6);
             else
-                p->moveLeft();  
+                p->moveLeft(.6);  
         }
+
         if(resL.collided)
         {
             if((*p).p->getPosition().z < t->getRight()->getPosition().z)
-                p->moveLeft();
+                p->moveLeft(.6);
             else
-                p->moveRight();
+                p->moveRight(.6 );
         }
+
 	if(resG.collided)
 	{
 	    p->moveUp();	

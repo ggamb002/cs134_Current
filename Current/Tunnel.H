@@ -21,7 +21,6 @@ public:
     Tunnel(const Number &w, const Number &h, const Number &pos,CollisionScene *scene)
         :position(pos),width(w)
     {
-      //  printf("Im here first");
         //Right Wall
         rw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,50,h,.1);
         rw->setPosition(Vector3(-1*position,h/2,width/2.0));
