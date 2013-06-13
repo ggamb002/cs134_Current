@@ -39,22 +39,31 @@ public:
 	std::cout<<"G:"<<generated<<std::endl;
     }
 
-    void generate(int i)
+    void randGenerate()
     {
         //float width = INITIAL_WIDTH - (random * W_SCALE);
         float width = prevWidth;
-        float height = TUNNEL_HEIGHT - (generated * H_SCALE);
-        float next_width = INITIAL_WIDTH - (random /*0* W_SCALE*/);
-        float next_height = TUNNEL_HEIGHT - ((generated + 1)*H_SCALE);
+        //float height = TUNNEL_HEIGHT - (generated * H_SCALE);
+        
+        float next_width;
+        if(generated == 0)
+            next_width = INITIAL_WIDTH - (random /*0* W_SCALE*/);
+        else
+            next_width = random;
+
+        //float next_height = TUNNEL_HEIGHT - ((generated + 1)*H_SCALE);
+
         float pos = TUNNEL_LENGTH * generated;
         float next_pos = TUNNEL_LENGTH * (generated + 1);
-        Tunnel * t= new Tunnel(width, height, pos, cscene);
-        Tunnel *tr = new Tunnel(next_height, next_pos,
+
+        Tunnel * t = new Tunnel(width, TUNNEL_HEIGHT, pos, cscene);
+        Tunnel * tr = new Tunnel(TUNNEL_HEIGHT, next_pos,
                                 cscene,width,next_width,TUNNEL_LENGTH);
+
         active_sections.push_back(t);
         active_sections.push_back(tr);
         generated += 2;
-        random = randInt(1,10);
+        random = randInt(10,20);
         prevWidth = next_width;
         printf("Rand = %i\n",random);
     }

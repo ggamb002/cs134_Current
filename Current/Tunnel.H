@@ -59,17 +59,17 @@ public:
         Number w = (w1 - w2)/2;
         Number angle = atan(w/length) * 180 / PI;
         Number len = sqrt(length * length + w * w);
-	Number d = w2/2;
+	//Number d = w2/2;
         //Right wall
         rw = new ScenePrimitive(ScenePrimitive::TYPE_BOX,len,h,.1);
         rw->setPosition(Vector3(-1*position, h/2, 0 ));
         //Figure out which way to angle the wall
         if(w1 > w2){
-	    rw->Translate(Vector3(0,0,d));
+	    rw->Translate(Vector3(0,0,w1/2 + w/-2));
             rw->setYaw(-1*angle);
         }
         else{ 
-	    rw->Translate(Vector3(0,0,-d));
+	    rw->Translate(Vector3(0,0,-1*w1/2 +w/2));
             rw->setYaw(angle);
         }
 
@@ -78,12 +78,12 @@ public:
         lw->setPosition(Vector3(-1*position, h/2, 0));
         //Figure out which way to angle the wall
         if( w1 > w2){
-	    lw->Translate(Vector3(0,0,-d));
+	    lw->Translate(Vector3(0,0,-1*w1/2 + w/2));
             lw->setYaw(angle);
         }
         else{
 
-	    lw->Translate(Vector3(0,0,d));
+	    lw->Translate(Vector3(0,0,w1/2 + w/-2));
             lw->setYaw(-1*angle);
         }
         //Decide how wide to make the ground plane   
