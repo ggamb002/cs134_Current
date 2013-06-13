@@ -51,6 +51,10 @@ public:
 	{
 	    p->moveUp();	
 	}
+	if(p->p->getPosition().y > TUNNEL_HEIGHT)
+	{
+	    p->moveDown();
+	}
         return( resL.collided || resR.collided ||resG.collided);
     }
 
