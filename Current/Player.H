@@ -10,7 +10,7 @@ public:
     Number speed;
     Vector3 prevPos;
 
-    Player(const Vector3 &pos, CollisionScene *cscene):speed(.15)
+    Player(const Vector3 &pos, CollisionScene *cscene):speed(.25)
     {
         p = new ScenePrimitive(ScenePrimitive::TYPE_BOX,1.0,1.0,1.0);
         p->setPosition(pos);
@@ -27,16 +27,30 @@ public:
     void moveLeft()
     {
         p->Translate(Vector3(0,0,speed));
-    } 
+    }
+    void moveLeft(Number sp)
+    {
+        p->Translate(Vector3(0,0,sp));
+    }
 
     void moveRight()
     {
         p->Translate(Vector3(0,0,-1*speed));
     }
 
+    void moveRight(Number sp)
+    {
+        p->Translate(Vector3(0,0,-1*sp));
+    }
+
     void moveForward()
     {
         p->Translate(Vector3(-1*speed,0,0));
+    }
+
+    void moveForward(Number sp)
+    {
+        p->Translate(Vector3(-1*sp,0,0));
     }
 
     void update()

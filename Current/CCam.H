@@ -10,12 +10,12 @@ public:
     ScenePrimitive *tar;
     Number speed;
 
-    CCam(Camera *c, const Vector3 &pos):cam(c),speed(.15)
+    CCam(Camera *c, const Vector3 &pos):cam(c),speed(.25)
     {
         tar = new ScenePrimitive(ScenePrimitive::TYPE_BOX,1.0,1.0,1.0);
         tar->setPosition(pos);
 
-        cam->setPosition(pos + Vector3(20,5,0));
+        cam->setPosition(pos + Vector3(20,10,0));
         cam->lookAt(pos);
     }
 
@@ -25,6 +25,11 @@ public:
         cam->Translate(Vector3(-1*speed,0,0));
     }
 
+    void moveForward(Number sp)
+    {
+        tar->Translate(Vector3(-1*sp,0,0));
+        cam->Translate(Vector3(-1*sp,0,0));
+    }
 
 };
 #endif
