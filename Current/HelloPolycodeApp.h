@@ -25,6 +25,7 @@ private:
     Player *p;
     bool mLeft;
     bool mRight;
+    Number updateSpeed;
     Generator * gen;
     std::vector<Obstacle *> obstacles;
     CCam *cam;
