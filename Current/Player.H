@@ -8,9 +8,17 @@ class Player{
 public:
     ScenePrimitive *p;
     Number speed;
-    Vector3 prevPos;
-
-    Player(const Vector3 &pos, CollisionScene *cscene):speed(.25)
+    Number bound;
+    Number homeslice;
+    bool l;
+    bool r;
+    bool u;
+    bool d;
+    bool f;
+    bool b;
+    Player(const Vector3 &pos, CollisionScene *cscene)
+	:speed(.25),l(false),r(false),u(false), d(false),f(false),b(false),
+	 homeslice(pos.z)
     {
         p = new ScenePrimitive(ScenePrimitive::TYPE_BOX,1.0,1.0,1.0);
         p->setPosition(pos);
@@ -37,7 +45,14 @@ public:
     {
         p->Translate(Vector3(0,0,-1*speed));
     }
-
+    void moveDown()
+    {
+        p->Translate(Vector3(0,-1*speed,0));
+    }
+    void moveUp()
+    {
+	p->Translate(Vector3(0,1*speed,0));
+    }
     void moveRight(Number sp)
     {
         p->Translate(Vector3(0,0,-1*sp));
@@ -46,6 +61,7 @@ public:
     void moveForward()
     {
         p->Translate(Vector3(-1*speed,0,0));
+	homeslice+=-1*speed;
     }
 
     void moveForward(Number sp)
@@ -53,15 +69,32 @@ public:
         p->Translate(Vector3(-1*sp,0,0));
     }
 
+    void boost()
+    {
+	
+    }
+    void brake()
+    {
+
+    }
+    void move_toward_center()
+    {
+
+    }
     void update()
     {
         this->moveForward();
+	if(l)moveLeft();
+	if(r)moveRight();
+	if(d)moveDown();
+	if(u)moveUp();
+	if(f)boost();
+	if(b)brake();
+	if(!f && !b)move_toward_center();
+	
     }
 
-    void undoMove()
-    {
-        p->setPosition(prevPos);
-    }
+    
     
     void setColor(Number r, Number g, Number b, Number a)
     {

@@ -19,7 +19,7 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     p = new Player(Vector3(-100.0,2.0,0.0),cscene);
     gen = new Generator(cscene);
     for(int i = 0; i < 10; ++i)
-	gen->generate(1);
+	gen->randGenerate();
 
     Obstacle * o = new Obstacle(Vector3(-25.0, 5.0,-1.0),cscene);
     Obstacle * o2 = new Obstacle(Vector3(-40.0, 2.5,1.0),cscene);
@@ -50,12 +50,24 @@ void HelloPolycodeApp::handleEvent(Event *e)
 			{
 			case KEY_LEFT:
 			    //p->moveLeft();
-			    mLeft = true;
+			    p->l = true;
                             break;
 			case KEY_RIGHT:
 			    //p->moveRight();
-			    mRight = true;
+			    p->r = true;
                             break;
+			case KEY_UP:
+			    p->u = true;
+			    break;
+			case KEY_DOWN:
+			    p->d = true;
+			    break;
+			case KEY_SPACE:
+			    p->f = true;
+			    break;
+			case KEY_LSHIFT:
+			    p->b = true;
+			    break;
 			}
 		    break;
             
@@ -63,10 +75,24 @@ void HelloPolycodeApp::handleEvent(Event *e)
 		    switch(inputEvent->keyCode())
 			{
 			case KEY_LEFT:
-                            mLeft = false;
-			    break;
+			    //p->moveLeft();
+			    p->l = false;
+                            break;
 			case KEY_RIGHT:
-                            mRight = false;
+			    //p->moveRight();
+			    p->r = false;
+                            break;
+			case KEY_UP:
+			    p->u = false;
+			    break;
+			case KEY_DOWN:
+			    p->d = false;
+			    break;
+			case KEY_SPACE:
+			    p->f = false;
+			    break;
+			case KEY_LSHIFT:
+			    p->b = false;
 			    break;
 			}
 		    break;
@@ -89,11 +115,6 @@ bool HelloPolycodeApp::Update() {
         else
             break;
     }
-
-    if(mRight)
-        p->moveRight();
-    if(mLeft)
-        p->moveLeft();
 
     p->moveForward(updateSpeed);
     cam->moveForward(updateSpeed);

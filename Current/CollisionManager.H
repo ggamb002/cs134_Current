@@ -27,7 +27,8 @@ public:
             c->testCollision(t->getLeft(),p->getEntity());
         CollisionResult resR =
             c->testCollision(t->getRight(),p->getEntity());
-
+	CollisionResult resG =
+            c->testCollision(t->getGround(),p->getEntity());
 //        if(resR.collided)
 //            p->moveRight();
 //        if(resL.collided)
@@ -46,7 +47,11 @@ public:
             else
                 p->moveRight();
         }
-        return( resL.collided || resR.collided );
+	if(resG.collided)
+	{
+	    p->moveUp();	
+	}
+        return( resL.collided || resR.collided ||resG.collided);
     }
 
     Number getSpeed(CollisionScene *c, Tunnel *t)
