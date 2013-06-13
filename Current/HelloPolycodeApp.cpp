@@ -2,6 +2,9 @@
 
 HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     
+    mLeft = false;
+    mRight = false;
+    updateSpeed = .15;
     core = new SDLCore(view, 640,480,false,false,0,0,90);	  
 
     CoreServices::getInstance()->getResourceManager()->addArchive("default.pak");
@@ -46,11 +49,13 @@ void HelloPolycodeApp::handleEvent(Event *e)
 		    switch(inputEvent->keyCode())
 			{
 			case KEY_LEFT:
-			    p->moveLeft();
-			    break;
+			    //p->moveLeft();
+			    mLeft = true;
+                            break;
 			case KEY_RIGHT:
-			    p->moveRight();
-			    break;
+			    //p->moveRight();
+			    mRight = true;
+                            break;
 			}
 		    break;
             
@@ -58,8 +63,10 @@ void HelloPolycodeApp::handleEvent(Event *e)
 		    switch(inputEvent->keyCode())
 			{
 			case KEY_LEFT:
+                            mLeft = false;
 			    break;
 			case KEY_RIGHT:
+                            mRight = false;
 			    break;
 			}
 		    break;
@@ -69,7 +76,7 @@ void HelloPolycodeApp::handleEvent(Event *e)
 
 bool HelloPolycodeApp::Update() {
 
-    Number updateSpeed = .15;   
+    //Number updateSpeed = .15;   
     p->update();
     cam->moveForward();
 
@@ -82,6 +89,12 @@ bool HelloPolycodeApp::Update() {
         else
             break;
     }
+
+    if(mRight)
+        p->moveRight();
+    if(mLeft)
+        p->moveLeft();
+
     p->moveForward(updateSpeed);
     cam->moveForward(updateSpeed);
     cMan->moveForward(updateSpeed);

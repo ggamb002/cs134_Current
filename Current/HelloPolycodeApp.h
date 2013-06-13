@@ -23,6 +23,8 @@ private:
     CollisionScene *cscene;
     CollisionManager *cMan;
     Player *p;
+    bool mLeft;
+    bool mRight;
     Generator * gen;
     std::vector<Obstacle *> obstacles;
     CCam *cam;
