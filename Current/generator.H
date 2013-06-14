@@ -1,9 +1,15 @@
 #ifndef __GENERATOR_H__
 #define __GENERATOR_H__
+
 #include "Tunnel.H"
 #include "obstacle.H"
+
 #include "enemy.H"
+
+#include "treasure.H"
+
 #include <iostream>
+
 const float INITIAL_WIDTH=20.0;
 const float W_SCALE = 1.5;
 const float H_SCALE = .2;
@@ -21,7 +27,12 @@ public:
     CollisionScene * cscene;
     std::vector<Tunnel*> active_sections;
     std::vector<Obstacle*> active_obstacles;
+
     std::vector<Enemy*> active_enemies;
+
+    std::vector<Treasure*> active_coins;
+
+
 
     void generate()
     {
@@ -40,9 +51,10 @@ public:
 	generated += 2;
 	std::cout<<"G:"<<generated<<std::endl;
     }
+
     void addObstacles()
     {
-	for(int i = 0; i < active_sections.size();++i){
+	for(int i = 2; i < active_sections.size();++i){
 	    Tunnel * t = active_sections[i];
 	    float r1 = (float)rand()/(float)RAND_MAX;
 	    float r2 = -.5 + (float)rand()/(float)RAND_MAX;
@@ -67,6 +79,7 @@ public:
 	    active_obstacles.push_back(o);
 	}
     }
+
     void addEnemies()
     {
 	for(int i = 0; i < active_sections.size();++i){
@@ -92,6 +105,34 @@ public:
 	}
 	
     }
+
+
+    void generateTreasure()
+    {
+        for(int i = 2; i < active_sections.size(); i++){
+            Tunnel * t = active_sections[i];
+            float r1 = (float)rand()/(float)RAND_MAX;
+            float r2 = .5 + (float)rand()/(float)RAND_MAX;
+            int r3 = rand()%2;
+            float xpos = -TUNNEL_LENGTH * r1 - t->position;
+            
+            Vector3 v;
+            if(r3 == 0){
+                float ypos = (float)randInt(1,8);
+                float zpos = (float)randInt(0,t->width/2) * -1;
+                v = Vector3(xpos,ypos,zpos);
+            }
+            else{
+                float ypos = (float)randInt(1,8);
+                float zpos = (float)randInt(0, t->width/2);
+                v = Vector3(xpos,ypos,zpos);
+            }
+            Treasure *  tr = new Treasure(v,cscene);
+            active_coins.push_back(tr);
+        }
+    }
+
+
     void randGenerate()
     {
         //float width = INITIAL_WIDTH - (random * W_SCALE);
@@ -125,14 +166,23 @@ public:
     {
 	active_sections = std::vector<Tunnel*>();
 	active_obstacles = std::vector<Obstacle*>();
+
 	active_enemies = std::vector<Enemy*>();
+
+        active_coins  = std::vector<Treasure*>();
+
     }
+
     Generator(CollisionScene * c)
 	:generated(0),cscene(c),random(2),prevWidth(5)
     {
 	active_sections = std::vector<Tunnel*>();
 	active_obstacles = std::vector<Obstacle*>();
+
 	active_enemies = std::vector<Enemy*>();
+
+        active_coins = std::vector<Treasure*>();
+
     }
 
 

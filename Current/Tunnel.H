@@ -12,7 +12,6 @@ public:
     ScenePrimitive *rw;
     ScenePrimitive *lw;
     ScenePrimitive *g;
-    //Number scale;
     Number position;
     Number width;
     Number speedFactor;
@@ -42,7 +41,7 @@ public:
         scene->addCollisionChild(lw);
         scene->addCollisionChild(g);
     
-        speedFactor = -.11*(w)+1;
+        speedFactor = -.11*(w)+.5;
         if(speedFactor < 0) speedFactor *= -1;
         printf("Speed is %f",speedFactor);
     }
@@ -103,7 +102,7 @@ public:
         scene->addCollisionChild(lw);
         scene->addCollisionChild(g);
 
-        speedFactor = -.11*(w2)+1;
+        speedFactor = -.11*((w1+w2)/2)+.5;
         if(speedFactor < 0) speedFactor *= -1;
         printf("Speed is %f",speedFactor);
     }

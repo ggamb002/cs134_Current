@@ -8,6 +8,8 @@
 #include "CCam.H"
 #include "CollisionManager.H"
 #include "obstacle.H"
+#include "treasure.H"
+#include <sstream>
 using namespace Polycode;
 
 class HelloPolycodeApp : public EventHandler {
@@ -23,12 +25,14 @@ private:
     CollisionScene *cscene;
     CollisionManager *cMan;
     Player *p;
-    bool mLeft;
-    bool mRight;
     Number updateSpeed;
     Generator * gen;
     std::vector<Obstacle *> obstacles;
     CCam *cam;
+
+    int point;
+
     ScreenLabel * label;
+    ScreenLabel * hud;
 
 };
