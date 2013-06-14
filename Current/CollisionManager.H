@@ -30,10 +30,7 @@ public:
             c->testCollision(t->getRight(),p->getEntity());
 	CollisionResult resG =
             c->testCollision(t->getGround(),p->getEntity());
-//        if(resR.collided)
-//            p->moveRight();
-//        if(resL.collided)
-//            p->moveLeft();
+
         if(resR.collided)
         {
             if((*p).p->getPosition().z > t->getLeft()->getPosition().z)

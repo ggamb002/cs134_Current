@@ -2,9 +2,8 @@
 
 HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     
-    mLeft = false;
-    mRight = false;
     updateSpeed = .15;
+    point = 0;
     core = new SDLCore(view, 640,480,false,false,0,0,90);	  
 
     CoreServices::getInstance()->getResourceManager()->addArchive("default.pak");
@@ -12,8 +11,10 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
 
     Screen *screen = new Screen();
     label = new ScreenLabel("HP:XXX", 32);
+    hud = new ScreenLabel("Score:0",32);
+    hud->setPosition(150,0);
     screen->addChild(label);
-
+    screen->addChild(hud);
     cscene = new CollisionScene();
 
     p = new Player(Vector3(0.0,2.0,0.0),cscene);
@@ -23,8 +24,6 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
 	gen->randGenerate();
     gen->addObstacles();
     gen->generateTreasure();
-
-//    t = new Treasure(Vector3(-100,2,0),cscene);
 
     cam = new CCam(cscene->getActiveCamera(),Vector3(0.0,2.0,0.0));
     cMan = new CollisionManager(cscene);
@@ -115,6 +114,7 @@ bool HelloPolycodeApp::Update() {
 	    for(int i = 0; i < p->HP;++i)
 		s+="X";
 	    label->setText(s);
+
 	}
 
     for(int i = 0; i<gen->active_sections.size(); ++i){
@@ -126,7 +126,16 @@ bool HelloPolycodeApp::Update() {
     }
     
     for(int i = 0; i < gen->active_coins.size(); ++i){
-        cMan->checkTreasure(cscene,p,gen->active_coins[i]); 
+        bool scored = cMan->checkTreasure(cscene,p,gen->active_coins[i]); 
+        if(scored){
+            std::stringstream ss;
+            point += 10;
+            ss << point;
+            std::string result;
+            ss >> result;
+            std::string s = "Score " + result;
+            hud->setText(s);
+        }
     }
 
     p->moveForward(updateSpeed);
