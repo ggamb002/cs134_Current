@@ -16,15 +16,12 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
 
     cscene = new CollisionScene();
 
-    p = new Player(Vector3(-100.0,2.0,0.0),cscene);
+    p = new Player(Vector3(0.0,2.0,0.0),cscene);
     gen = new Generator(cscene);
     for(int i = 0; i < 10; ++i)
 	gen->randGenerate();
-
-    Obstacle * o = new Obstacle(Vector3(-25.0, 5.0,-1.0),cscene);
-    Obstacle * o2 = new Obstacle(Vector3(-40.0, 2.5,1.0),cscene);
-    cam = new CCam(cscene->getActiveCamera(),Vector3(-100.0,2.0,0.0));
-    
+    gen->addObstacles();
+    cam = new CCam(cscene->getActiveCamera(),Vector3(0.0,2.0,0.0));
     cMan = new CollisionManager(cscene);
 
     core->getInput()->addEventListener(this, InputEvent::EVENT_KEYDOWN);

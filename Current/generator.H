@@ -1,5 +1,5 @@
 #ifndef __GENERATOR_H__
-//#define __TUNNEL_H__
+#define __GENERATOR_H__
 #include "Tunnel.H"
 #include "obstacle.H"
 #include <iostream>
@@ -33,12 +33,39 @@ public:
 	Tunnel * t = new Tunnel(width,height,pos,cscene);
 	Tunnel * tr = new Tunnel( next_height,next_pos,
 				  cscene,width,next_width, TUNNEL_LENGTH);
+
 	active_sections.push_back(t);
 	active_sections.push_back(tr);
 	generated += 2;
 	std::cout<<"G:"<<generated<<std::endl;
     }
-
+    void addObstacles()
+    {
+	for(int i = 0; i < active_sections.size();++i){
+	    Tunnel * t = active_sections[i];
+	    float r1 = (float)rand()/(float)RAND_MAX;
+	    float r2 = -.5 + (float)rand()/(float)RAND_MAX;
+	    int r3  = rand()%2; 
+	    float xpos = -TUNNEL_LENGTH * r1 - t->position;
+	    std::cout<<"XPOS:"<<xpos<<std::endl;
+	    float angle = 0;
+	    float length;
+	    Vector3 v;
+	    if(r3 == 0){
+		float zpos = t->width * r2 ;
+		v = Vector3(xpos,0,zpos);
+		length = TUNNEL_LENGTH;
+	    }
+	    else{
+		float ypos = TUNNEL_HEIGHT * r2;
+		v = Vector3(xpos,ypos,0);
+		angle = 90.0;
+		length = t->width;
+	    }
+	    Obstacle * o = new Obstacle(v,cscene,length,angle);
+	    active_obstacles.push_back(o);
+	}
+    }
     void randGenerate()
     {
         //float width = INITIAL_WIDTH - (random * W_SCALE);
