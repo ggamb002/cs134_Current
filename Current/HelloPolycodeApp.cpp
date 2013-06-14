@@ -11,7 +11,7 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     CoreServices::getInstance()->getResourceManager()->addDirResource("default", false);
 
     Screen *screen = new Screen();
-    ScreenLabel *label = new ScreenLabel("I hate everything", 32);
+    label = new ScreenLabel("HP:XXX", 32);
     screen->addChild(label);
 
     cscene = new CollisionScene();
@@ -105,6 +105,16 @@ bool HelloPolycodeApp::Update() {
 
     for(int i = 0; i<gen->active_sections.size(); ++i)
     	cMan->testCollision(cscene,gen->active_sections[i],p);
+    for(int i = 0; i <gen->active_obstacles.size(); ++i)
+	if(cMan->obstacleCollision(gen->active_obstacles[i],p,cscene)){
+	    p->moveForward(2.5);
+	    cam->moveForward(2.5);
+	    cMan->moveForward(2.5);
+	    std::string s = "HP:";
+	    for(int i = 0; i < p->HP;++i)
+		s+="X";
+	    label->setText(s);
+	}
     for(int i = 0; i<gen->active_sections.size(); ++i){
         updateSpeed = cMan->getSpeed(cscene,gen->active_sections[i]);
         if(updateSpeed < 0)
@@ -112,6 +122,7 @@ bool HelloPolycodeApp::Update() {
         else
             break;
     }
+    
 
     p->moveForward(updateSpeed);
     cam->moveForward(updateSpeed);

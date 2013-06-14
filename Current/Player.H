@@ -10,6 +10,7 @@ public:
     Number speed;
     Number bound;
     Number homeslice;
+    int HP;
     bool l;
     bool r;
     bool u;
@@ -18,7 +19,7 @@ public:
     bool b;
     Player(const Vector3 &pos, CollisionScene *cscene)
 	:speed(.25),l(false),r(false),u(false), d(false),f(false),b(false),
-	bound(4.0)
+	 bound(4.0),HP(3)
     {
         p = new ScenePrimitive(ScenePrimitive::TYPE_BOX,1.0,1.0,1.0);
         p->setPosition(pos);

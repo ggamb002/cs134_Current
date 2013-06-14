@@ -29,5 +29,6 @@ private:
     Generator * gen;
     std::vector<Obstacle *> obstacles;
     CCam *cam;
+    ScreenLabel * label;
 
 };
