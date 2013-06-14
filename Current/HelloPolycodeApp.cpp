@@ -134,7 +134,10 @@ bool HelloPolycodeApp::Update() {
         else
             break;
     }
-    
+    if(updateSpeed <= 0)updateSpeed = p->speed;
+    p->speed=updateSpeed;
+    cam->speed=updateSpeed;
+    cMan->moveForward(updateSpeed);
     for(int i = 0; i < gen->active_coins.size(); ++i){
         bool scored = cMan->checkTreasure(cscene,p,gen->active_coins[i]); 
         if(scored){
@@ -147,10 +150,6 @@ bool HelloPolycodeApp::Update() {
             hud->setText(s);
         }
     }
-
-    p->moveForward(updateSpeed);
-    cam->moveForward(updateSpeed);
-    cMan->moveForward(updateSpeed);
     return core->updateAndRender();
 
 }

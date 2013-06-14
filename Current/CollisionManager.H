@@ -16,7 +16,7 @@ public:
     CollisionManager(CollisionScene *c)
     {
         speedCheck = new ScenePrimitive(ScenePrimitive::TYPE_BOX,10.0,10.0,10.0);
-        speedCheck->setPosition(-100.0,0.0,0.0);
+        speedCheck->setPosition(0.0,0.0,0.0);
         speedCheck->setColor(0.0,0.0,0.0,0.0);
         c->addCollisionChild(speedCheck);
     }

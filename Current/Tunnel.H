@@ -41,8 +41,8 @@ public:
         scene->addCollisionChild(lw);
         scene->addCollisionChild(g);
     
-        speedFactor = -.11*(w)+.5;
-        if(speedFactor < 0) speedFactor *= -1;
+        speedFactor = 15.0/w;
+
         printf("Speed is %f",speedFactor);
     }
 
@@ -102,8 +102,8 @@ public:
         scene->addCollisionChild(lw);
         scene->addCollisionChild(g);
 
-        speedFactor = -.11*((w1+w2)/2)+.5;
-        if(speedFactor < 0) speedFactor *= -1;
+        speedFactor = 15.0/((w1+w2)/2);
+        
         printf("Speed is %f",speedFactor);
     }
 

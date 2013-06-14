@@ -8,6 +8,7 @@ class Player{
 public:
     ScenePrimitive *p;
     Number speed;
+    Number ms;
     Number bound;
     Number homeslice;
     int HP;
@@ -18,7 +19,7 @@ public:
     bool f;
     bool b;
     Player(const Vector3 &pos, CollisionScene *cscene)
-	:speed(.25),l(false),r(false),u(false), d(false),f(false),b(false),
+	:speed(.25),ms(.25),l(false),r(false),u(false), d(false),f(false),b(false),
 	 bound(4.0),HP(3)
     {
         p = new ScenePrimitive(ScenePrimitive::TYPE_BOX,1.0,1.0,1.0);
@@ -35,7 +36,7 @@ public:
 
     void moveLeft()
     {
-        p->Translate(Vector3(0,0,speed));
+        p->Translate(Vector3(0,0,ms));
     }
     void moveLeft(Number sp)
     {
@@ -44,15 +45,15 @@ public:
 
     void moveRight()
     {
-        p->Translate(Vector3(0,0,-1*speed));
+        p->Translate(Vector3(0,0,-1*ms));
     }
     void moveDown()
     {
-        p->Translate(Vector3(0,-1*speed,0));
+        p->Translate(Vector3(0,-1*ms,0));
     }
     void moveUp()
     {
-	p->Translate(Vector3(0,1*speed,0));
+	p->Translate(Vector3(0,1*ms,0));
     }
     void moveRight(Number sp)
     {
@@ -74,28 +75,28 @@ public:
     void boost()
     {
 	if(p->getPosition().x > homeslice - bound)
-	    p->Translate(Vector3(-1*speed,0,0));
+	    p->Translate(Vector3(-1*ms,0,0));
     }
     void brake()
     {
 	if(p->getPosition().x < homeslice + bound)
-	    p->Translate(Vector3(1*speed,0,0));
+	    p->Translate(Vector3(1*ms,0,0));
     }
     void move_toward_center()
     {
 	if(p->getPosition().x > homeslice){
-	    if(p->getPosition().x - speed < homeslice)
+	    if(p->getPosition().x - ms < homeslice)
 		p->setPosition(Vector3( homeslice,p->getPosition().y,
 					p->getPosition().z));
 	    else
-		p->Translate(Vector3(-1 * speed,0,0));
+		p->Translate(Vector3(-1 * ms,0,0));
 	}
 	else if(p->getPosition().x < homeslice){
-	    if(p->getPosition().x + speed > homeslice)
+	    if(p->getPosition().x + ms > homeslice)
 		p->setPosition(Vector3( homeslice,p->getPosition().y,
 					p->getPosition().z));
 	    else
-		p->Translate(Vector3( speed,0,0));
+		p->Translate(Vector3( ms,0,0));
 	}
     }
     void update()
