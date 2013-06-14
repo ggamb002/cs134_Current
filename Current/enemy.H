@@ -19,6 +19,7 @@ public:
 	p = new ScenePrimitive(ScenePrimitive::TYPE_CONE,1.0, 
 			       1.0,10.0);
 	p->setPosition(pos);
+	p->Translate(0,.5,.5);
 	p->setColor(0.0,0.0,1.0,1.0);
 	cscene->addCollisionChild(p);
     }
