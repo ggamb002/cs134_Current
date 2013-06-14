@@ -2,6 +2,7 @@
 #define __GENERATOR_H__
 #include "Tunnel.H"
 #include "obstacle.H"
+#include "enemy.H"
 #include <iostream>
 const float INITIAL_WIDTH=20.0;
 const float W_SCALE = 1.5;
@@ -20,7 +21,7 @@ public:
     CollisionScene * cscene;
     std::vector<Tunnel*> active_sections;
     std::vector<Obstacle*> active_obstacles;
-
+    std::vector<Enemy*> active_enemies;
 
     void generate()
     {
@@ -66,6 +67,31 @@ public:
 	    active_obstacles.push_back(o);
 	}
     }
+    void addEnemies()
+    {
+	for(int i = 0; i < active_sections.size();++i){
+	    Tunnel *t = active_sections[i];
+	    //LO + (float)rand()/((float)RAND_MAX/(HI-LO)); 
+	    float x = -t->position - (float) rand()/((float)RAND_MAX/TUNNEL_LENGTH);
+	    float y = (float)rand()/((float)RAND_MAX/TUNNEL_HEIGHT);
+	    float z = -(t->width)/2 + (float)rand()/((float)RAND_MAX/t->width);
+	    bool is_vertical  = (bool)(rand()%2);
+	    float goal;
+	    if(is_vertical){
+		goal = (float)rand()/((float)RAND_MAX/TUNNEL_HEIGHT);
+		std::cout<<"Y:"<<y<<std::endl;
+		std::cout<<"GOAL:"<<goal<<std::endl;
+	    }
+	    else{
+		goal = -(t->width)/2 + (float)rand()/((float)RAND_MAX/t->width);
+		std::cout<<"Z:"<<z<<std::endl;
+		std::cout<<"GOAL:"<<goal<<std::endl;
+	    }
+	    Enemy * e = new Enemy(Vector3(x,y,z),cscene,goal,is_vertical);
+	    active_enemies.push_back(e);
+	}
+	
+    }
     void randGenerate()
     {
         //float width = INITIAL_WIDTH - (random * W_SCALE);
@@ -99,12 +125,14 @@ public:
     {
 	active_sections = std::vector<Tunnel*>();
 	active_obstacles = std::vector<Obstacle*>();
+	active_enemies = std::vector<Enemy*>();
     }
     Generator(CollisionScene * c)
 	:generated(0),cscene(c),random(2),prevWidth(5)
     {
 	active_sections = std::vector<Tunnel*>();
 	active_obstacles = std::vector<Obstacle*>();
+	active_enemies = std::vector<Enemy*>();
     }
 
 

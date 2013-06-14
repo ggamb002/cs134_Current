@@ -1,12 +1,12 @@
-#ifndef __OBSTACLE_H__
-#define __OBSTACLE_H__
+#ifndef __ENEMY_H__
+#define __ENEMY_H__
 using namespace Polycode;
 
-class Obstacle{
+class Enemy{
 public:
     ScenePrimitive *p;
     Vector3 pos;
-    Obstacle(const Vector3 &pos, CollisionScene * cscene, Number length, float angle)
+    Enemy(const Vector3 &pos, CollisionScene * cscene)
 	:pos(pos)
     {
 

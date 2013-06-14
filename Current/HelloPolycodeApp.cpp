@@ -21,6 +21,7 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     for(int i = 0; i < 10; ++i)
 	gen->randGenerate();
     gen->addObstacles();
+    gen->addEnemies();
     cam = new CCam(cscene->getActiveCamera(),Vector3(0.0,2.0,0.0));
     cMan = new CollisionManager(cscene);
 
@@ -105,6 +106,9 @@ bool HelloPolycodeApp::Update() {
 
     for(int i = 0; i<gen->active_sections.size(); ++i)
     	cMan->testCollision(cscene,gen->active_sections[i],p);
+    for(int i = 0; i < gen->active_enemies.size();++i){
+	gen->active_enemies[i]->Update();
+    }
     for(int i = 0; i <gen->active_obstacles.size(); ++i)
 	if(cMan->obstacleCollision(gen->active_obstacles[i],p,cscene)){
 	    p->moveForward(2.5);
