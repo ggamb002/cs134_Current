@@ -15,9 +15,9 @@ public:
 
     CollisionManager(CollisionScene *c)
     {
-        speedCheck = new ScenePrimitive(ScenePrimitive::TYPE_BOX,10.0,10.0,10.0);
-        speedCheck->setPosition(-100.0,0.0,0.0);
-        speedCheck->setColor(0.0,0.0,0.0,0.0);
+        speedCheck = new ScenePrimitive(ScenePrimitive::TYPE_BOX,1.0,1.0,1.0);
+        speedCheck->setPosition(24.0,0.0,0.0);
+        speedCheck->setColor(0.0,0.0,1.0,1.0);
         c->addCollisionChild(speedCheck);
     }
 
@@ -33,7 +33,7 @@ public:
 //        if(resR.collided)
 //            p->moveRight();
 //        if(resL.collided)
-//            p->moveLeft();
+//     /       p->moveLeft();
         if(resR.collided)
         {
             if((*p).p->getPosition().z > t->getLeft()->getPosition().z)
@@ -68,16 +68,17 @@ public:
             c->testCollision(t->getGround(),speedCheck);
         if(resG.collided)
         {
-            printf("Man %f\n",(*t).speedFactor);
+            //printf("Man %f\n",(*t).speedFactor);
             return (*t).speedFactor;
         }
         else
             return -1;
     }
 
-    void moveForward(Number sp)
+    void moveForward(const Number& sp)
     {
         speedCheck->Translate(Vector3(-1*sp,0,0));
+        printf("%f\n",speedCheck->getPosition().x);
     }
 
     //Test for treasure collection

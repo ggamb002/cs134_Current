@@ -99,7 +99,7 @@ public:
     }
     void update()
     {
-        this->moveForward();
+        //this->moveForward();
 	if(l)moveLeft();
 	if(r)moveRight();
 	if(d)moveDown();

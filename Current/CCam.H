@@ -15,7 +15,7 @@ public:
         tar = new ScenePrimitive(ScenePrimitive::TYPE_BOX,1.0,1.0,1.0);
         tar->setPosition(pos);
 
-        cam->setPosition(pos + Vector3(30,20,0));
+        cam->setPosition(pos + Vector3(50,20,0));
         cam->lookAt(pos);
     }
 
@@ -25,7 +25,7 @@ public:
         cam->Translate(Vector3(-1*speed,0,0));
     }
 
-    void moveForward(Number sp)
+    void moveForward(const Number & sp)
     {
         tar->Translate(Vector3(-1*sp,0,0));
         cam->Translate(Vector3(-1*sp,0,0));

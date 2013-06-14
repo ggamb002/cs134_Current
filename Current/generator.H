@@ -65,7 +65,6 @@ public:
         generated += 2;
         random = randInt(10,20);
         prevWidth = next_width;
-        printf("Rand = %i\n",random);
     }
     Generator()
 	:generated(0),cscene(NULL)

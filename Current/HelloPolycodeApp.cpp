@@ -23,9 +23,6 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     for(int i = 0; i < 10; ++i)
 	gen->randGenerate();
 
-//    Obstacle * o = new Obstacle(Vector3(-25.0, 5.0,-1.0),cscene);
-//    Obstacle * o2 = new Obstacle(Vector3(-40.0, 2.5,1.0),cscene);
-
     t = new Treasure(Vector3(-100.0,2.0,1.0),cscene,1.0);
 
 //    cam = new CCam(cscene->getActiveCamera(),Vector3(-100.0,2.0,0.0));
@@ -55,11 +52,9 @@ void HelloPolycodeApp::handleEvent(Event *e)
 		    switch(inputEvent->keyCode())
 			{
 			case KEY_LEFT:
-			    //p->moveLeft();
 			    p->l = true;
                             break;
 			case KEY_RIGHT:
-			    //p->moveRight();
 			    p->r = true;
                             break;
 			case KEY_UP:
@@ -110,7 +105,6 @@ bool HelloPolycodeApp::Update() {
 
     //Number updateSpeed = .15;   
     p->update();
-    cam->moveForward();
 
     for(int i = 0; i<gen->active_sections.size(); ++i)
     	cMan->testCollision(cscene,gen->active_sections[i],p);
