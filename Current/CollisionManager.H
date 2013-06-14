@@ -59,7 +59,16 @@ public:
 	}
         return( resL.collided || resR.collided ||resG.collided);
     }
-
+    bool obstacleCollision(Obstacle * o, Player *p, CollisionScene * c)
+    {
+	CollisionResult r = 
+            c->testCollision(o->p,p->getEntity());
+	if(r.collided){
+	    p->HP-=1;
+	    return true;
+	}
+	return false;
+    } 
     Number getSpeed(CollisionScene *c, Tunnel *t)
     {
         if(c==NULL || t==NULL) return -1;

@@ -54,7 +54,7 @@ public:
 	    if(r3 == 0){
 		float zpos = t->width * r2 ;
 		v = Vector3(xpos,0,zpos);
-		length = TUNNEL_LENGTH;
+		length = TUNNEL_HEIGHT;
 	    }
 	    else{
 		float ypos = TUNNEL_HEIGHT * r2;
