@@ -67,6 +67,16 @@ public:
 	}
 	return false;
     } 
+    bool enemyCollision(Enemy * e, Player *p, CollisionScene * c)
+    {
+	CollisionResult r = 
+            c->testCollision(e->p,p->getEntity());
+	if(r.collided){
+	    p->HP-=1;
+	    return true;
+	}
+	return false;
+    } 
     Number getSpeed(CollisionScene *c, Tunnel *t)
     {
         if(c==NULL || t==NULL) return -1;

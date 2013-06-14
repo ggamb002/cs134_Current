@@ -111,6 +111,15 @@ bool HelloPolycodeApp::Update() {
 
     for(int i = 0; i < gen->active_enemies.size();++i){
 	gen->active_enemies[i]->Update();
+	if(cMan->enemyCollision(gen->active_enemies[i],p,cscene)){
+	    p->moveForward(2.5);
+	    cam->moveForward(2.5);
+	    cMan->moveForward(2.5);
+	    std::string s = "HP:";
+	    for(int i = 0; i < p->HP;++i)
+		s+="X";
+	    label->setText(s);
+	}
     }
 
     
