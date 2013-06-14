@@ -17,10 +17,15 @@ HelloPolycodeApp::HelloPolycodeApp(PolycodeView *view) : EventHandler() {
     cscene = new CollisionScene();
 
     p = new Player(Vector3(0.0,2.0,0.0),cscene);
+
     gen = new Generator(cscene);
     for(int i = 0; i < 10; ++i)
 	gen->randGenerate();
     gen->addObstacles();
+    gen->generateTreasure();
+
+//    t = new Treasure(Vector3(-100,2,0),cscene);
+
     cam = new CCam(cscene->getActiveCamera(),Vector3(0.0,2.0,0.0));
     cMan = new CollisionManager(cscene);
 
@@ -46,11 +51,9 @@ void HelloPolycodeApp::handleEvent(Event *e)
 		    switch(inputEvent->keyCode())
 			{
 			case KEY_LEFT:
-			    //p->moveLeft();
 			    p->l = true;
                             break;
 			case KEY_RIGHT:
-			    //p->moveRight();
 			    p->r = true;
                             break;
 			case KEY_UP:
@@ -72,11 +75,9 @@ void HelloPolycodeApp::handleEvent(Event *e)
 		    switch(inputEvent->keyCode())
 			{
 			case KEY_LEFT:
-			    //p->moveLeft();
 			    p->l = false;
                             break;
 			case KEY_RIGHT:
-			    //p->moveRight();
 			    p->r = false;
                             break;
 			case KEY_UP:
@@ -99,12 +100,12 @@ void HelloPolycodeApp::handleEvent(Event *e)
 
 bool HelloPolycodeApp::Update() {
 
-    //Number updateSpeed = .15;   
     p->update();
     cam->moveForward();
 
     for(int i = 0; i<gen->active_sections.size(); ++i)
     	cMan->testCollision(cscene,gen->active_sections[i],p);
+    
     for(int i = 0; i <gen->active_obstacles.size(); ++i)
 	if(cMan->obstacleCollision(gen->active_obstacles[i],p,cscene)){
 	    p->moveForward(2.5);
@@ -115,6 +116,7 @@ bool HelloPolycodeApp::Update() {
 		s+="X";
 	    label->setText(s);
 	}
+
     for(int i = 0; i<gen->active_sections.size(); ++i){
         updateSpeed = cMan->getSpeed(cscene,gen->active_sections[i]);
         if(updateSpeed < 0)
@@ -123,6 +125,9 @@ bool HelloPolycodeApp::Update() {
             break;
     }
     
+    for(int i = 0; i < gen->active_coins.size(); ++i){
+        cMan->checkTreasure(cscene,p,gen->active_coins[i]); 
+    }
 
     p->moveForward(updateSpeed);
     cam->moveForward(updateSpeed);
